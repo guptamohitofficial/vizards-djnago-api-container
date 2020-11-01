@@ -1,8 +1,7 @@
 from django.contrib.auth.models import User, Group
-from rest_framework import viewsets
-from rest_framework import permissions
+from rest_framework import viewsets, permissions
 from vizards.serializers import UserSerializer
-
+from vizards.cc import *
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -10,4 +9,12 @@ class UserViewSet(viewsets.ModelViewSet):
     """
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated] 
+    #permission_classes = [permissions.IsAuthenticated]
+    
+class WhoUser(APIView):
+    def post(self, request, *args, **kwargs):
+        user = who(request.data.get('token'))
+        if user: return Response({'detail':True})
+        else: return Response({'detail':False})
+
+
