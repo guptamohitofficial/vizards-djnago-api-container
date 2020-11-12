@@ -3,6 +3,7 @@ from rest_framework import viewsets, permissions
 from vizards.serializers import UserSerializer
 from vizards.cc import *
 
+
 class UserViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.

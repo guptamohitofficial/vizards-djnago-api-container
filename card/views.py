@@ -2,14 +2,29 @@ from vizards.cc import *
 from card.serializers import *
 from user.serializers import UserSerializer
 from card.models import *
-# Create your views here.
+
+
+class GetUserSchedule(APIView):
+    
+    authentication_classes = [TokenAuthentication, BasicAuthentication]
+    permission_classes = [IsAuthenticated]
+    
+    def post(self, request):
+        cards = Card.objects.filter(creator=request.user)
+        serializedCards = CardSerializer(cards, many=True)
+        return Response(serializedCards.data)
+
+    def get(self, request):
+        return Response()
+        
 
 class CreateVisitingCard(APIView):
     
     authentication_classes = [TokenAuthentication, BasicAuthentication]
     permission_classes = [IsAuthenticated]
-
+    
     def post(self, request):
+        print(request.user)
         serializer = CardSerializer(data=request.data)
         context = {'status':'null'}  
         try: 
