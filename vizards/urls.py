@@ -14,8 +14,8 @@ router.register(r'users', viz.UserViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
-    path('get-user-details', userView.GetUserDetails.as_view(), name='authToken'),
-    path('get-schedule', cardView.GetUserSchedule.as_view(), name='authToken'),
+    path('get-user-details', userView.GetUserDetails.as_view(), name='get-user-details'),
+    path('get-schedule', cardView.GetUserSchedule.as_view(), name='get-schedule'),
     path('request/token', obtain_auth_token, name='authToken'),
     path('validate/token', viz.WhoUser.as_view(), name='authUser'),
     path('user-auth', userView.userAuth, name="userAuth"),

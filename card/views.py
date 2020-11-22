@@ -27,11 +27,12 @@ class CreateVisitingCard(APIView):
         print(request.user)
         serializer = CardSerializer(data=request.data)
         context = {'status':'null'}  
+        print(serializer.data)
+        return Response(context)
         try: 
             if serializer.is_valid(): serializer.save(); context['status'] = 'success'
             else: context['status'] = 'invalid format' 
         except KeyError: context['status'] = 'error'
-        return Response(context)
 
     def get(self, request):
         return Response()
